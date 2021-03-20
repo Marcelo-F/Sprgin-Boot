@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<!--Import Google Icon Font-->
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+	rel="stylesheet">
+<!--Import materialize.css-->
+<link type="text/css" rel="stylesheet"
+	href="/materialize/css/materialize.min.css" media="screen,projection" />
+<link type="text/css" rel="stylesheet"
+	href="/materialize/css/materialize.css" media="screen,projection" />
+
+
+<style type="text/css">
+form input[type=submit] {
+	color: white;
+}
+
+
+
+#msgErro{
+
+color:red;
+
+}
+</style>
+</head>
+<body>
+
+<br/>
+
+<div th:each = "m : ${msg}">
+		<span th:text ="${m}" id="msgErro"></span>
+
+</div>
+<br/>
+
+	<a class="waves-effect waves-light btn" href="/cadastropessoa">Cad.
+		Pessoa</a>
+
+	<h3>Spring boot + Thymeleaf + Material Design lite</h3>
+	<br />
+	<h5>Cadastro de Pessoa</h5>
+
+	<div th:each="p : ${pessoaobj}">
+		<div class="row">
+			<p>
+				ID: <span th:text="${p.id}"></span>
+			</p>
+			<p>
+				Nome: <span th:text="${p.nome}"></span>
+			</p>
+			<p>
+				Sobrenome: <span th:text="${p.sobrenome}"></span>
+			</p>
+			<p>
+				Idade: <span th:text="${p.idade}"></span>
+			</p>
+		</div>
+
+
+	</div>
+
+
+	<h5>Telefones</h5>
+	<div class="row">
+		<form th:action="@{/addfonePessoa/{pessoaid}(pessoaid=${pessoaobj.id})}" method="post" class="col s12">
+			<div class="row">
+				<div class="input-field col s6">
+					<label class="active" for="numero"> Número:</label> <input
+						id="numero" name="numero" class="validate">
+
+				</div>
+
+
+				<div class="input-field col s6">
+					<label class="active" for="tipo"> Tipo:</label> <input id="tipo"
+						name="tipo" class="validate">
+				</div>
+
+				<input type="submit" value="Adicionar"
+					class="waves-effect waves-light btn">
+
+			</div>
+
+		</form>
+
+	</div>
+	
+	
+	<table class="striped">
+	<tr th:each="fone : ${telefones}">
+		<td th:text="${fone.numero}"/>
+		<td th:text="${fone.tipo}"/>
+		<td><a
+				th:href="@{/removertelefone/{idtelefone}(idtelefone=${fone.id})}">Excluir</a></td>
+	
+	
+	</tr>
+	
+	</table>
+	
+
+
+	<script type="text/javascript" src="/materialize/js/materialize.min.js"></script>
+	<script type="text/javascript" src="/materialize/js/materialize.js"></script>
+</body>
+</html>
